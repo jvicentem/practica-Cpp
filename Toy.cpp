@@ -7,7 +7,7 @@
 
 #include "Item.h"
 #include "Toy.h"
-
+#include <sstream>
 using namespace std;
 
 Toy::Toy(string name, float price, unsigned int amount, string brand) : Item(name,price,amount), _brand(brand) {}

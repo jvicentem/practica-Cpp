@@ -10,6 +10,7 @@
 
 #include <string>
 #include "IOUtils.h"
+#include "Item.h"
 
 class ItemProcessor {
 	public:
@@ -24,9 +25,16 @@ class ItemProcessor {
 	private:
 		// Attributes
 		Item* _items;
+		unsigned int _numItems;
 
 		// Getters
 		Item* get_items() const;
+		Item* get_numItems() const;
+
+		// Setters
+		void set_numItems(unsigned int numItems);
+
+		void add_item(unsigned int index, const Item& item);
 };
 
 #endif /* ITEMPROCESSOR_H_ */

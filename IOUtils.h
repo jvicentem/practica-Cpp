@@ -7,14 +7,13 @@
 
 #ifndef IOUTILS_H_
 #define IOUTILS_H_
+#include <string>
 
 class IOUtils {
 	public:
 		IOUtils(std::string path);
-
 		virtual ~IOUtils();
-
-		virtual std::vector<std::vector<std::string>> readFile() const;
+		virtual std::string* readFile() const;
 
 	protected:
 		// Attributes

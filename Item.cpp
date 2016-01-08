@@ -9,7 +9,9 @@ using namespace std;
 
 Item::Item(string name, float price, unsigned int amount) : _name(name), _price(price), _amount(amount) {}
 
-Item::~Item() {}
+Item::~Item() {
+	delete this;
+}
 
 string Item::get_name() const {
 	return _name;

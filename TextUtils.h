@@ -6,14 +6,15 @@
  */
 
 #include "IOUtils.h"
+#include <string>
 
 class TextUtils: public IOUtils {
 	public:
 		TextUtils(std::string path);
 
-		~TextUtils();
+		virtual ~TextUtils();
 
-		std::vector<std::vector<std::string>> readFile() const;
+		std::string* readFile() const;
 };
 
 

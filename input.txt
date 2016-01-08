@@ -1,0 +1,4 @@
+3
+3 Futech Mi_primera_tablet 2 7.95
+1 El_general_en_su_laberinto Gabriel_García_Márquez 23.50
+2 Carne_picada 1 4.56

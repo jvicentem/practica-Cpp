@@ -11,100 +11,135 @@
 #include "Grocery.h"
 #include "Toy.h"
 #include "IOUtils.h"
+#include <string>
+#include <sstream>
 
 using namespace std;
 
-	ItemProcessor::ItemProcessor() : _items(0) {}
+ItemProcessor::ItemProcessor() :
+		_items(0), _numItems(0) {
+}
 
-	Item* ItemProcessor::get_items() const {
-		return _items;
-	}
+Item* ItemProcessor::get_items() const {
+	return _items;
+}
 
-	ItemProcessor::~ItemProcessor() {
-		delete [] get_items();
+void ItemProcessor::set_numItems(unsigned int numItems) {
+	_numItems = numItems;
+}
 
-		delete this;
-	}
+ItemProcessor::~ItemProcessor() {
+	delete[] get_items();
 
-	void ItemProcessor::load(string fileName) {
-		IOUtils* io = new IOUtils(fileName);
-		vector<vector<string>> lines = io->readFile();
+	delete this;
+}
 
-		unsigned int index = 0;
+void ItemProcessor::add_item(unsigned int index, const Item& item) {
+	_items[index] = item;
+}
 
-		for (iterator itLines = lines.begin() ; itLines != lines.end(); ++itLines) {
-			for (iterator it = itLines ; it != lines.end(); ++it) {
-				  Item* i;
+void ItemProcessor::load(string fileName) {
+	IOUtils* io = new IOUtils(fileName);
+	string* lines = io->readFile();
 
-				  string e = *it;
+	stringstream ss(lines[0]);
+	unsigned int numItems_aux;
+	ss >> numItems_aux;
+	set_numItems(numItems_aux);
 
-			      switch (isdigit((e[0]))) {
-			         case '1':
-			        	 stringstream ss(e[3]);
-			        	 float price_aux;
-			        	 ss >> price_aux;
+	for (unsigned int index = 0; index < numItems_aux; index++) {
+		istringstream iss(lines[index]);
 
-			        	 i = new Book(e[1],price_aux,e[2]);
-			            break;
-			         case '2':
-						stringstream ss(e[3]);
-						float price_aux;
-						ss >> price_aux;
+		string* words;
+		string word = "";
 
-						int amount_aux;
-						ss(e[2]) >> amount_aux;
+		unsigned int i = 0;
+		while (iss >> word) {
+			words[i] = word;
+			i++;
+		}
 
-						i = new Grocery(e[1],price_aux,amount_aux);
-			            break;
-			         case '3':
-						stringstream ss(e[4]);
-						float price_aux;
-						ss >> price_aux;
+		Item* item;
 
-						int amount_aux;
-						ss(e[3]) >> amount_aux;
+		stringstream ss(words[0]);
+		unsigned int item_type_aux;
+		ss >> item_type_aux;
 
-			        	i = new Toy(e[2],price_aux,amount_aux,e[1]);
-			        	break;
-			      }
+		switch (item_type_aux) {
+			case 1:
+			{
+				stringstream ss(words[3]);
+				float price_aux;
+				ss >> price_aux;
 
-			      get_items()[index] = i;
+				item = new Book(words[1], price_aux, words[2]);
+				break;
+			}
+			case 2:
+			{
+				stringstream ss(words[3]);
+				float price_aux;
+				ss >> price_aux;
 
-			      index++;
+				stringstream ss2(words[2]);
+				unsigned int amount_aux;
+				ss2 >> amount_aux;
+
+				item = new Grocery(words[1], price_aux, amount_aux);
+				break;
+			}
+			case 3:
+			{
+				stringstream ss(words[4]);
+				float price_aux;
+				ss >> price_aux;
+
+				stringstream ss2(words[3]);
+				unsigned int amount_aux;
+				ss2 >> amount_aux;
+
+				item = new Toy(words[2], price_aux, amount_aux, words[1]);
+				break;
 			}
 		}
 
-		lines.clear();
-		delete lines;
+		add_item(index, *item);
 	}
 
-	string ItemProcessor::generateTicket() const {
-		string ticket = "";
-		Item* itemsArray = get_items();
+	delete [] lines;
+}
 
-		unsigned int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
+string ItemProcessor::generateTicket() const {
+	string ticket = "";
+	Item* itemsArray = get_items();
+	float aux_price = 0.0;
 
-		for (int i = 0; i<top; i++) {
-			ticket = ticket + itemsArray[i].generateTicketLine();
-		}
+	int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
 
-		delete [] itemsArray;
-
-		return ticket;
+	for (int i = 0; i < top; i++) {
+		ticket = ticket + itemsArray[i].generateTicketLine();
+		aux_price = aux_price + itemsArray[i].pvp();
 	}
 
-	float ItemProcessor::pvp() const {
-		int pvp = 0.0;
+	delete[] itemsArray;
 
-		Item* itemsArray = get_items();
+	stringstream ss;
+	ss << ticket << aux_price << endl;
+	return ss.str();
+}
 
-		unsigned int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
+float ItemProcessor::pvp() const {
+	int pvp = 0.0;
 
-		for (int i = 0; i<top; i++) {
-			pvp = pvp + itemsArray[i].pvp();
-		}
+	Item* itemsArray = get_items();
 
-		delete [] itemsArray;
+	int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
 
-		return pvp;
+	for (int i = 0; i < top; i++) {
+		pvp = pvp + itemsArray[i].pvp();
 	}
+
+	delete[] itemsArray;
+
+	return pvp;
+}

@@ -12,35 +12,27 @@
 
 using namespace std;
 
-TextUtils::TextUtils (string path) : _path(path) {}
+TextUtils::TextUtils (string path) : IOUtils(path) {}
 
 TextUtils::~TextUtils() {
 	delete this;
 }
 
-vector<vector<string>> TextUtils::readFile() const {
-	vector<vector<string>> lines;
-	vector<string> buffer;
-
-	unsigned int numItems;
-	string line;
+string* TextUtils::readFile() const {
+	unsigned int numItems, i;
 
 	ifstream in (get_path().c_str());
 	in >> numItems;
 
-	for (unsigned int i = 0; i < numItems; i++) {
-		string word;
-		in >> word;
-		buffer.push_back(word);
+	string lines[numItems];
+	lines[0] = numItems;
 
-		if (word.find('\n') > 0) {
-			lines.push_back(buffer);
-			buffer.clear();
-		}
+	string line;
+	i = 1;
+	while (getline(in, line)) {
+		lines[i] = line;
+		i++;
 	}
-
-	buffer.clear();
-	delete buffer;
 
 	return lines;
 }

@@ -6,6 +6,7 @@
  */
 #include "Item.h"
 #include "Book.h"
+#include <sstream>
 
 using namespace std;
 

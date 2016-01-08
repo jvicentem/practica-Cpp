@@ -7,10 +7,11 @@
 
 #ifndef ITEM_H_
 #define ITEM_H_
+#include <string>
 
 class Item {
 	public:
-		Item(std::string name, float price, unsigned int amount);
+		Item (std::string name, float price, unsigned int amount);
 
 		virtual ~Item();
 
