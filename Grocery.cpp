@@ -6,8 +6,11 @@
  */
 
 #include <sstream>
+#include <math.h>
 #include "Item.h"
 #include "Grocery.h"
+
+#define GROCERY_TAX 0.08;
 
 using namespace std;
 
@@ -19,12 +22,13 @@ Grocery::~Grocery() {
 
 string Grocery::generateTicketLine() const {
 	stringstream ss;
-	ss << " " << get_amount() << " " << get_name() << " " << pvp() << endl;
+	ss << get_amount() << " " << get_name() << " " << pvp() << endl;
 	return ss.str();
 }
 
 float Grocery::pvp() const {
-	return get_price()*8.0;
+	float price = get_price()+get_price()*GROCERY_TAX;
+	return roundf(price*100) / 100;
 }
 
 

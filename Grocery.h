@@ -7,7 +7,7 @@
 
 #ifndef GROCERY_H_
 #define GROCERY_H_
-
+#include <string>
 #include "Item.h"
 
 class Grocery: public Item {

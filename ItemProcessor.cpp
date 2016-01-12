@@ -5,14 +5,16 @@
  *      Author: jose
  */
 
+#include <string>
+#include <sstream>
+#include <stdlib.h>
 #include "ItemProcessor.h"
 #include "Item.h"
 #include "Book.h"
 #include "Grocery.h"
 #include "Toy.h"
 #include "IOUtils.h"
-#include <string>
-#include <sstream>
+#include "TextUtils.h"
 
 using namespace std;
 
@@ -20,8 +22,12 @@ ItemProcessor::ItemProcessor() :
 		_items(0), _numItems(0) {
 }
 
-Item* ItemProcessor::get_items() const {
+Item** ItemProcessor::get_items() const {
 	return _items;
+}
+
+unsigned int ItemProcessor::get_numItems() const {
+	return _numItems;
 }
 
 void ItemProcessor::set_numItems(unsigned int numItems) {
@@ -29,117 +35,98 @@ void ItemProcessor::set_numItems(unsigned int numItems) {
 }
 
 ItemProcessor::~ItemProcessor() {
-	delete[] get_items();
-
-	delete this;
-}
-
-void ItemProcessor::add_item(unsigned int index, const Item& item) {
-	_items[index] = item;
+	delete[] _items;
 }
 
 void ItemProcessor::load(string fileName) {
-	IOUtils* io = new IOUtils(fileName);
+	IOUtils *io = new TextUtils(fileName);
+
 	string* lines = io->readFile();
 
-	stringstream ss(lines[0]);
-	unsigned int numItems_aux;
-	ss >> numItems_aux;
-	set_numItems(numItems_aux);
+	unsigned int numItemsAux = atoi(lines[0].c_str());
 
-	for (unsigned int index = 0; index < numItems_aux; index++) {
-		istringstream iss(lines[index]);
+	set_numItems(numItemsAux);
 
-		string* words;
+	_items = new Item*[numItemsAux];
+
+	for (unsigned int index = 0; index < numItemsAux; index++) {
+		istringstream iss(lines[(index+1)]);
+
+		string* words = new string[5]; //5 porque una línea tiene como mucho 5 palabaras
 		string word = "";
-
 		unsigned int i = 0;
+
 		while (iss >> word) {
 			words[i] = word;
 			i++;
 		}
 
-		Item* item;
+		Item* item = 0;
 
-		stringstream ss(words[0]);
-		unsigned int item_type_aux;
-		ss >> item_type_aux;
+		unsigned int itemTypeAux = atoi(words[0].c_str());
 
-		switch (item_type_aux) {
+		switch (itemTypeAux) {
 			case 1:
 			{
-				stringstream ss(words[3]);
-				float price_aux;
-				ss >> price_aux;
+				float priceAux = atof(words[3].c_str());
 
-				item = new Book(words[1], price_aux, words[2]);
+				item = new Book(words[1], priceAux, words[2]);
+
 				break;
 			}
 			case 2:
 			{
-				stringstream ss(words[3]);
-				float price_aux;
-				ss >> price_aux;
+				float price_aux = atof(words[3].c_str());
 
-				stringstream ss2(words[2]);
-				unsigned int amount_aux;
-				ss2 >> amount_aux;
+				unsigned int amountAux = atoi(words[2].c_str());
 
-				item = new Grocery(words[1], price_aux, amount_aux);
+				item = new Grocery(words[1], price_aux, amountAux);
+
 				break;
 			}
 			case 3:
 			{
-				stringstream ss(words[4]);
-				float price_aux;
-				ss >> price_aux;
+				float priceAux = atof(words[4].c_str());
 
-				stringstream ss2(words[3]);
-				unsigned int amount_aux;
-				ss2 >> amount_aux;
+				unsigned int amount_aux = atoi(words[3].c_str());
 
-				item = new Toy(words[2], price_aux, amount_aux, words[1]);
+				item = new Toy(words[2], priceAux, amount_aux, words[1]);
+
 				break;
 			}
 		}
 
-		add_item(index, *item);
+		_items[index] = item;
 	}
 
 	delete [] lines;
 }
 
-string ItemProcessor::generateTicket() const {
-	string ticket = "";
-	Item* itemsArray = get_items();
-	float aux_price = 0.0;
+float ItemProcessor::pvp() const {
+	float pvp = 0.0;
+	Item** itemsArray = get_items();
+	unsigned int top = get_numItems();
 
-	int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
-
-	for (int i = 0; i < top; i++) {
-		ticket = ticket + itemsArray[i].generateTicketLine();
-		aux_price = aux_price + itemsArray[i].pvp();
+	for (unsigned int i = 0; i < top; i++) {
+		pvp = pvp + itemsArray[i]->pvp();
 	}
 
-	delete[] itemsArray;
+	return pvp;
+}
+
+string ItemProcessor::generateTicket() const {
+	string ticket = "";
+	Item** itemsArray = get_items();
+	float aux_price = 0.0;
+
+	unsigned int top = get_numItems();
+
+	for (unsigned int i = 0; i < top; i++) {
+		ticket = ticket + itemsArray[i]->generateTicketLine();
+		aux_price = aux_price + itemsArray[i]->pvp();
+	}
 
 	stringstream ss;
 	ss << ticket << aux_price << endl;
 	return ss.str();
-}
-
-float ItemProcessor::pvp() const {
-	int pvp = 0.0;
-
-	Item* itemsArray = get_items();
-
-	int top = sizeof(itemsArray) / sizeof(itemsArray[0]);
-
-	for (int i = 0; i < top; i++) {
-		pvp = pvp + itemsArray[i].pvp();
-	}
-
-	delete[] itemsArray;
-
-	return pvp;
 }

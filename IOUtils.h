@@ -13,7 +13,7 @@ class IOUtils {
 	public:
 		IOUtils(std::string path);
 		virtual ~IOUtils();
-		virtual std::string* readFile() const;
+		virtual std::string* readFile() const = 0;
 
 	protected:
 		// Attributes

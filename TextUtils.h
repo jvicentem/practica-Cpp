@@ -5,6 +5,9 @@
  *      Author: jose
  */
 
+#ifndef TEXTUTILS_H_
+#define TEXTUTILS_H_
+
 #include "IOUtils.h"
 #include <string>
 
@@ -17,4 +20,4 @@ class TextUtils: public IOUtils {
 		std::string* readFile() const;
 };
 
-
+#endif /* TEXTUTILS_H_ */

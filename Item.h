@@ -15,8 +15,8 @@ class Item {
 
 		virtual ~Item();
 
-		virtual std::string generateTicketLine() const;
-		virtual float pvp() const;
+		virtual std::string generateTicketLine() const = 0;
+		virtual float pvp() const = 0;
 
 	protected:
 		// Attributes

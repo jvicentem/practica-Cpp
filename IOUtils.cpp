@@ -4,7 +4,8 @@
  *  Created on: 2 Jan 2016
  *      Author: jose
  */
-#include <vector>
+
+#include <string>
 #include "IOUtils.h"
 
 using namespace std;
@@ -19,4 +20,6 @@ string IOUtils::get_path() const {
 	return _path;
 }
 
-
+/*string* IOUtils::readFile() const {
+	return (0);
+}*/

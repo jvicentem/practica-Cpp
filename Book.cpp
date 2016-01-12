@@ -4,9 +4,13 @@
  *  Created on: 2 Jan 2016
  *      Author: jose
  */
+
+#include <sstream>
+#include <math.h>
 #include "Item.h"
 #include "Book.h"
-#include <sstream>
+
+#define BOOK_TAX 0.16;
 
 using namespace std;
 
@@ -23,7 +27,8 @@ string Book::generateTicketLine() const {
 }
 
 float Book::pvp() const {
-	return get_price()*16.0;
+	float price = get_price()+get_price()*BOOK_TAX;
+	return roundf(price*100) / 100;
 }
 
 string Book::get_author() const {

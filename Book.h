@@ -7,7 +7,7 @@
 
 #ifndef BOOK_H_
 #define BOOK_H_
-
+#include <string>
 #include "Item.h"
 
 class Book: public Item {

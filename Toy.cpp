@@ -5,9 +5,13 @@
  *      Author: jose
  */
 
+#include <sstream>
+#include <math.h>
 #include "Item.h"
 #include "Toy.h"
-#include <sstream>
+
+#define TOY_TAX 0.21;
+
 using namespace std;
 
 Toy::Toy(string name, float price, unsigned int amount, string brand) : Item(name,price,amount), _brand(brand) {}
@@ -18,12 +22,13 @@ Toy::~Toy() {
 
 string Toy::generateTicketLine() const {
 	stringstream ss;
-	ss << " " << get_amount() << " " << get_name() << " " << pvp() << endl;
+	ss << get_amount() << " " << get_name() << " " << pvp() << endl;
 	return ss.str();
 }
 
 float Toy::pvp() const {
-	return get_price()*21.0;
+	float price = get_price()+get_price()*TOY_TAX;
+	return roundf(price*100) / 100;
 }
 
 string Toy::get_brand() const {

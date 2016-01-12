@@ -5,10 +5,11 @@
  *      Author: jose
  */
 
-#include "TextUtils.h"
-#include "IOUtils.h"
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
+#include "TextUtils.h"
+#include "IOUtils.h"
 
 using namespace std;
 
@@ -19,20 +20,23 @@ TextUtils::~TextUtils() {
 }
 
 string* TextUtils::readFile() const {
-	unsigned int numItems, i;
-
 	ifstream in (get_path().c_str());
-	in >> numItems;
 
-	string lines[numItems];
-	lines[0] = numItems;
+	string numItemsAux;
+	getline(in, numItemsAux);
 
+	unsigned int numItems = atoi(numItemsAux.c_str());
+	unsigned int arraySize = numItems+1;
+	string* lines = new string[arraySize];
+	lines[0] = numItemsAux;
 	string line;
-	i = 1;
-	while (getline(in, line)) {
+	unsigned int i = 1;
+	while (getline(in, line) && i<arraySize) {
 		lines[i] = line;
 		i++;
 	}
+
+	in.close();
 
 	return lines;
 }

@@ -1,4 +1,9 @@
-3
+7
 3 Futech Mi_primera_tablet 2 7.95
 1 El_general_en_su_laberinto Gabriel_García_Márquez 23.50
 2 Carne_picada 1 4.56
+2 Patata 2 0.20
+2 Tomate 10 0.45
+3 Sony Play_Station_4 1 350
+1 Patrones_de_diseño The_Gang_of_Four 20
+3 Adidas Balón_Champions_League 1 25.78
