@@ -16,9 +16,7 @@ using namespace std;
 
 Toy::Toy(string name, float price, unsigned int amount, string brand) : Item(name,price,amount), _brand(brand) {}
 
-Toy::~Toy() {
-	delete this;
-}
+Toy::~Toy() {}
 
 string Toy::generateTicketLine() const {
 	stringstream ss;

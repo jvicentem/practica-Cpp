@@ -35,13 +35,19 @@ void ItemProcessor::set_numItems(unsigned int numItems) {
 }
 
 ItemProcessor::~ItemProcessor() {
-	delete[] _items;
+	for (unsigned int i = 0; i < get_numItems(); i++) {
+		delete _items[i];
+	}
+
+	delete [] _items;
 }
 
 void ItemProcessor::load(string fileName) {
 	IOUtils *io = new TextUtils(fileName);
 
 	string* lines = io->readFile();
+
+	delete io;
 
 	unsigned int numItemsAux = atoi(lines[0].c_str());
 
@@ -52,7 +58,7 @@ void ItemProcessor::load(string fileName) {
 	for (unsigned int index = 0; index < numItemsAux; index++) {
 		istringstream iss(lines[(index+1)]);
 
-		string* words = new string[5]; //5 porque una línea tiene como mucho 5 palabaras
+		string* words = new string[5]; //5 porque una línea tiene como máximo 5 palabaras
 		string word = "";
 		unsigned int i = 0;
 
@@ -76,11 +82,11 @@ void ItemProcessor::load(string fileName) {
 			}
 			case 2:
 			{
-				float price_aux = atof(words[3].c_str());
+				float priceAux = atof(words[3].c_str());
 
 				unsigned int amountAux = atoi(words[2].c_str());
 
-				item = new Grocery(words[1], price_aux, amountAux);
+				item = new Grocery(words[1], priceAux, amountAux);
 
 				break;
 			}
@@ -96,6 +102,7 @@ void ItemProcessor::load(string fileName) {
 			}
 		}
 
+		delete [] words;
 		_items[index] = item;
 	}
 
