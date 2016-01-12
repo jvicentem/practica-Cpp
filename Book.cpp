@@ -16,9 +16,7 @@ using namespace std;
 
 Book::Book(string name, float price, string author) : Item(name,price,1), _author(author) {}
 
-Book::~Book() {
-	delete this;
-}
+Book::~Book() {}
 
 string Book::generateTicketLine() const {
 	stringstream ss;

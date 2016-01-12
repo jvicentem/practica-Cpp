@@ -12,9 +12,7 @@ using namespace std;
 
 IOUtils::IOUtils(string path) : _path(path) {}
 
-IOUtils::~IOUtils() {
-	delete this;
-}
+IOUtils::~IOUtils() {}
 
 string IOUtils::get_path() const {
 	return _path;

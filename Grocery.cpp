@@ -16,9 +16,7 @@ using namespace std;
 
 Grocery::Grocery(string name, float price, unsigned int amount) : Item(name,price,amount) {}
 
-Grocery::~Grocery() {
-	delete this;
-}
+Grocery::~Grocery() {}
 
 string Grocery::generateTicketLine() const {
 	stringstream ss;

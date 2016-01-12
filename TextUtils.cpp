@@ -15,9 +15,7 @@ using namespace std;
 
 TextUtils::TextUtils (string path) : IOUtils(path) {}
 
-TextUtils::~TextUtils() {
-	delete this;
-}
+TextUtils::~TextUtils() {}
 
 string* TextUtils::readFile() const {
 	ifstream in (get_path().c_str());
