@@ -134,6 +134,6 @@ string ItemProcessor::generateTicket() const {
 	}
 
 	stringstream ss;
-	ss << ticket << aux_price << endl;
+	ss << "\n" << ticket << aux_price << endl;
 	return ss.str();
 }

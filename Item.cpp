@@ -4,6 +4,8 @@
  *  Created on: 2 Jan 2016
  *      Author: jose
  */
+
+#include <math.h>
 #include "Item.h"
 
 using namespace std;
@@ -22,4 +24,8 @@ float Item::get_price() const {
 
 int Item::get_amount() const {
 	return _amount;
+}
+
+float Item::pvpPerUnit () const {
+	return roundf((pvp()/get_amount())*100) / 100;
 }

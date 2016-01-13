@@ -28,6 +28,8 @@ class Item {
 		std::string get_name() const;
 		float get_price() const;
 		int get_amount() const;
+
+		float pvpPerUnit() const;
 };
 
 #endif /* ITEM_H_ */

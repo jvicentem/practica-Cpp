@@ -20,13 +20,13 @@ Grocery::~Grocery() {}
 
 string Grocery::generateTicketLine() const {
 	stringstream ss;
-	ss << get_amount() << " " << get_name() << " " << pvp() << endl;
+	ss << get_amount() << " " << get_name() << " " << pvpPerUnit() << endl;
 	return ss.str();
 }
 
 float Grocery::pvp() const {
 	float price = get_price()+get_price()*GROCERY_TAX;
-	return roundf(price*100) / 100;
+	return roundf(price*get_amount()*100) / 100;
 }
 
 

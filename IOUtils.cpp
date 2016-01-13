@@ -17,7 +17,3 @@ IOUtils::~IOUtils() {}
 string IOUtils::get_path() const {
 	return _path;
 }
-
-/*string* IOUtils::readFile() const {
-	return (0);
-}*/

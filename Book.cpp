@@ -20,13 +20,13 @@ Book::~Book() {}
 
 string Book::generateTicketLine() const {
 	stringstream ss;
-	ss << get_name() << " " << pvp() << endl;
+	ss << get_name() << " " << pvpPerUnit() << endl;
 	return ss.str();
 }
 
 float Book::pvp() const {
-	float price = get_price()+get_price()*BOOK_TAX;
-	return roundf(price*100) / 100;
+	float price = get_price()+get_amount()*get_price()*BOOK_TAX;
+	return roundf(price*get_amount()*100) / 100;
 }
 
 string Book::get_author() const {

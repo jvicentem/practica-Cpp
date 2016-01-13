@@ -20,13 +20,13 @@ Toy::~Toy() {}
 
 string Toy::generateTicketLine() const {
 	stringstream ss;
-	ss << get_amount() << " " << get_name() << " " << pvp() << endl;
+	ss << get_amount() << " " << get_name() << " " << pvpPerUnit() << endl;
 	return ss.str();
 }
 
 float Toy::pvp() const {
 	float price = get_price()+get_price()*TOY_TAX;
-	return roundf(price*100) / 100;
+	return roundf(price*get_amount()*100) / 100;
 }
 
 string Toy::get_brand() const {
