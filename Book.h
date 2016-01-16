@@ -17,7 +17,7 @@ class Book: public Item {
 		~Book();
 
 		std::string generateTicketLine() const;
-		float pvp() const;
+		double pvp() const;
 
 	private:
 		// Attribute

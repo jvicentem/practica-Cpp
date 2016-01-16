@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Toy::Toy(string name, float price, unsigned int amount, string brand) : Item(name,price,amount), _brand(brand) {}
+Toy::Toy(string name, double price, unsigned int amount, string brand) : Item(name,price,amount), _brand(brand) {}
 
 Toy::~Toy() {}
 
@@ -24,7 +24,7 @@ string Toy::generateTicketLine() const {
 	return ss.str();
 }
 
-float Toy::pvp() const {
+double Toy::pvp() const {
 	float price = get_price()+get_price()*TOY_TAX;
 	return roundf(price*get_amount()*100) / 100;
 }

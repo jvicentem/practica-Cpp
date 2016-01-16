@@ -35,7 +35,7 @@ void ItemProcessor::set_numItems(unsigned int numItems) {
 }
 
 ItemProcessor::~ItemProcessor() {
-	for (unsigned int i = 0; i < get_numItems(); i++) {
+	for (unsigned int i = 0; i < get_numItems(); ++i) {
 		delete _items[i];
 	}
 
@@ -55,7 +55,7 @@ void ItemProcessor::load(string fileName) {
 
 	_items = new Item*[numItemsAux];
 
-	for (unsigned int index = 0; index < numItemsAux; index++) {
+	for (unsigned int index = 0; index < numItemsAux; ++index) {
 		istringstream iss(lines[(index+1)]);
 
 		string* words = new string[5]; //5 porque una línea tiene como máximo 5 palabaras
@@ -64,10 +64,8 @@ void ItemProcessor::load(string fileName) {
 
 		while (iss >> word) {
 			words[i] = word;
-			i++;
+			++i;
 		}
-
-		Item* item = 0;
 
 		unsigned int itemTypeAux = atoi(words[0].c_str());
 
@@ -76,7 +74,7 @@ void ItemProcessor::load(string fileName) {
 			{
 				float priceAux = atof(words[3].c_str());
 
-				item = new Book(words[1], priceAux, words[2]);
+				_items[index] = new Book(words[1], priceAux, words[2]);
 
 				break;
 			}
@@ -86,7 +84,7 @@ void ItemProcessor::load(string fileName) {
 
 				unsigned int amountAux = atoi(words[2].c_str());
 
-				item = new Grocery(words[1], priceAux, amountAux);
+				_items[index] = new Grocery(words[1], priceAux, amountAux);
 
 				break;
 			}
@@ -96,14 +94,14 @@ void ItemProcessor::load(string fileName) {
 
 				unsigned int amount_aux = atoi(words[3].c_str());
 
-				item = new Toy(words[2], priceAux, amount_aux, words[1]);
+				_items[index] = new Toy(words[2], priceAux, amount_aux, words[1]);
 
 				break;
 			}
 		}
 
 		delete [] words;
-		_items[index] = item;
+
 	}
 
 	delete [] lines;
@@ -114,7 +112,7 @@ float ItemProcessor::pvp() const {
 	Item** itemsArray = get_items();
 	unsigned int top = get_numItems();
 
-	for (unsigned int i = 0; i < top; i++) {
+	for (unsigned int i = 0; i < top; ++i) {
 		pvp = pvp + itemsArray[i]->pvp();
 	}
 
@@ -128,7 +126,7 @@ string ItemProcessor::generateTicket() const {
 
 	unsigned int top = get_numItems();
 
-	for (unsigned int i = 0; i < top; i++) {
+	for (unsigned int i = 0; i < top; ++i) {
 		ticket = ticket + itemsArray[i]->generateTicketLine();
 		aux_price = aux_price + itemsArray[i]->pvp();
 	}

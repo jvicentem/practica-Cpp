@@ -12,12 +12,12 @@
 
 class Toy: public Item {
 	public:
-		Toy(std::string name, float price, unsigned int amount, std::string brand);
+		Toy(std::string name, double price, unsigned int amount, std::string brand);
 
 		~Toy();
 
 		std::string generateTicketLine() const;
-		float pvp() const;
+		double pvp() const;
 
 	private:
 		// Attribute

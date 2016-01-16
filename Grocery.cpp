@@ -24,8 +24,8 @@ string Grocery::generateTicketLine() const {
 	return ss.str();
 }
 
-float Grocery::pvp() const {
-	float price = get_price()+get_price()*GROCERY_TAX;
+double Grocery::pvp() const {
+	double price = get_price()+get_price()*GROCERY_TAX;
 	return roundf(price*get_amount()*100) / 100;
 }
 

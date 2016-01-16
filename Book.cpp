@@ -24,7 +24,7 @@ string Book::generateTicketLine() const {
 	return ss.str();
 }
 
-float Book::pvp() const {
+double Book::pvp() const {
 	float price = get_price()+get_amount()*get_price()*BOOK_TAX;
 	return roundf(price*get_amount()*100) / 100;
 }

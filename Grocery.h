@@ -17,7 +17,7 @@ class Grocery: public Item {
 		~Grocery();
 
 		std::string generateTicketLine() const;
-		float pvp() const;
+		double pvp() const;
 };
 
 #endif /* GROCERY_H_ */

@@ -29,9 +29,10 @@ string* TextUtils::readFile() const {
 	lines[0] = numItemsAux;
 	string line;
 	unsigned int i = 1;
+
 	while (getline(in, line) && i<arraySize) {
 		lines[i] = line;
-		i++;
+		++i;
 	}
 
 	in.close();

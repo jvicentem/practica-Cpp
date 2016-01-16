@@ -18,14 +18,14 @@ string Item::get_name() const {
 	return _name;
 }
 
-float Item::get_price() const {
+double Item::get_price() const {
 	return _price;
 }
 
-int Item::get_amount() const {
+unsigned int Item::get_amount() const {
 	return _amount;
 }
 
-float Item::pvpPerUnit () const {
+double Item::pvpPerUnit () const {
 	return roundf((pvp()/get_amount())*100) / 100;
 }

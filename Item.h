@@ -16,20 +16,20 @@ class Item {
 		virtual ~Item();
 
 		virtual std::string generateTicketLine() const = 0;
-		virtual float pvp() const = 0;
+		virtual double pvp() const = 0;
 
 	protected:
 		// Attributes
 		std::string _name;
-		float _price;
-		int _amount;
+		double _price;
+		unsigned int _amount;
 
 		// Getters
 		std::string get_name() const;
-		float get_price() const;
-		int get_amount() const;
+		double get_price() const;
+		unsigned int get_amount() const;
 
-		float pvpPerUnit() const;
+		double pvpPerUnit() const;
 };
 
 #endif /* ITEM_H_ */
