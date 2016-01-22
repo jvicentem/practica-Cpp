@@ -12,7 +12,7 @@
 
 class Grocery: public Item {
 	public:
-		Grocery(std::string name, float price, unsigned int amount);
+		Grocery(std::string name, double price, unsigned int amount);
 
 		~Grocery();
 

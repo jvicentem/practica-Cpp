@@ -12,7 +12,7 @@
 
 class Book: public Item {
 	public:
-		Book(std::string name, float price, std::string author);
+		Book(std::string name, double price, std::string author);
 
 		~Book();
 

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Item::Item(string name, float price, unsigned int amount) : _name(name), _price(price), _amount(amount) {}
+Item::Item(string name, double price, unsigned int amount) : _name(name), _price(price), _amount(amount) {}
 
 Item::~Item() {}
 

@@ -11,7 +11,7 @@
 
 class Item {
 	public:
-		Item (std::string name, float price, unsigned int amount);
+		Item (std::string name, double price, unsigned int amount);
 
 		virtual ~Item();
 

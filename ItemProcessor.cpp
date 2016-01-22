@@ -72,7 +72,7 @@ void ItemProcessor::load(string fileName) {
 		switch (itemTypeAux) {
 			case 1:
 			{
-				float priceAux = atof(words[3].c_str());
+				double priceAux = atof(words[3].c_str());
 
 				_items[index] = new Book(words[1], priceAux, words[2]);
 
@@ -80,7 +80,7 @@ void ItemProcessor::load(string fileName) {
 			}
 			case 2:
 			{
-				float priceAux = atof(words[3].c_str());
+				double priceAux = atof(words[3].c_str());
 
 				unsigned int amountAux = atoi(words[2].c_str());
 
@@ -90,7 +90,7 @@ void ItemProcessor::load(string fileName) {
 			}
 			case 3:
 			{
-				float priceAux = atof(words[4].c_str());
+				double priceAux = atof(words[4].c_str());
 
 				unsigned int amount_aux = atoi(words[3].c_str());
 
@@ -108,7 +108,7 @@ void ItemProcessor::load(string fileName) {
 }
 
 float ItemProcessor::pvp() const {
-	float pvp = 0.0;
+	double pvp = 0.0e0;
 	Item** itemsArray = get_items();
 	unsigned int top = get_numItems();
 
@@ -122,7 +122,7 @@ float ItemProcessor::pvp() const {
 string ItemProcessor::generateTicket() const {
 	string ticket = "";
 	Item** itemsArray = get_items();
-	float aux_price = 0.0;
+	double aux_price = 0.0;
 
 	unsigned int top = get_numItems();
 

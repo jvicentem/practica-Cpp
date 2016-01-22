@@ -25,7 +25,7 @@ string Toy::generateTicketLine() const {
 }
 
 double Toy::pvp() const {
-	float price = get_price()+get_price()*TOY_TAX;
+	double price = get_price()+get_price()*TOY_TAX;
 	return roundf(price*get_amount()*100) / 100;
 }
 

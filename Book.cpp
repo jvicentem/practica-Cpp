@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Book::Book(string name, float price, string author) : Item(name,price,1), _author(author) {}
+Book::Book(string name, double price, string author) : Item(name,price,1), _author(author) {}
 
 Book::~Book() {}
 
@@ -25,7 +25,7 @@ string Book::generateTicketLine() const {
 }
 
 double Book::pvp() const {
-	float price = get_price()+get_amount()*get_price()*BOOK_TAX;
+	double price = get_price()+get_amount()*get_price()*BOOK_TAX;
 	return roundf(price*get_amount()*100) / 100;
 }
 
