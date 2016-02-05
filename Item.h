@@ -18,12 +18,13 @@ class Item {
 		virtual std::string generateTicketLine() const = 0;
 		virtual double pvp() const = 0;
 
-	protected:
+	private:
 		// Attributes
 		std::string _name;
 		double _price;
 		unsigned int _amount;
 
+	protected:
 		// Getters
 		std::string get_name() const;
 		double get_price() const;
