@@ -1,2 +1,2 @@
-# practica-Cpp
-Práctica de C++ de la asignatura Paradigmas de Programación curso 2015/2016
+# Procesamiento de tickets de compra
+https://github.com/jvicentem/practica-Cpp/wiki
